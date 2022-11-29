@@ -13,8 +13,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final _searchBadTextEditingController = TextEditingController();
 
-  List<Photo> _photos = [];
-
   @override
   void dispose() {
     _searchBadTextEditingController.dispose();
@@ -46,29 +44,37 @@ class _MainPageState extends State<MainPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     suffixIcon: IconButton(
                         onPressed: () async {
-                          final data = await photoProvider.api
-                              .getPhotos(_searchBadTextEditingController.text);
                           setState(() {
-                            _photos = data;
+                            photoProvider
+                                .fetch(_searchBadTextEditingController.text);
                           });
                         },
                         icon: const Icon(Icons.search))),
               ),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
-              Expanded(
-                child: GridView.builder(
-                  itemCount: _photos.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16),
-                  itemBuilder: (context, index) {
-                    return PhotoWidget(
-                      photo: _photos[index],
+              StreamBuilder(
+                  stream: photoProvider.photoStream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    final photos = snapshot.data!;
+                    return Expanded(
+                      child: GridView.builder(
+                        itemCount: photos.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16),
+                        itemBuilder: (context, index) {
+                          return PhotoWidget(
+                            photo: photos[index],
+                          );
+                        },
+                      ),
                     );
-                  },
-                ),
-              )
+                  })
             ],
           ),
         ));
