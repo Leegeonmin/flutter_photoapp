@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_photoapp/data/api.dart';
+import 'package:flutter_photoapp/data/pixabay_api.dart';
 import 'package:flutter_photoapp/model/photo.dart';
 import 'package:flutter_photoapp/ui/main/main_view_model.dart';
 
