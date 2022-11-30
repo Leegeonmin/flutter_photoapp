@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_photoapp/data/photo_provider.dart';
-import 'package:flutter_photoapp/view/component/photo_widget.dart';
+import 'package:flutter_photoapp/ui/component/photo_widget.dart';
 import 'package:flutter_photoapp/model/photo.dart';
 
 class MainPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final photoProvider = PhotoProvider.of(context);
+    final viewModel = PhotoProvider.of(context).viewModel;
 
     return Scaffold(
         appBar: AppBar(
@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
                     suffixIcon: IconButton(
                         onPressed: () async {
                           setState(() {
-                            photoProvider
+                            viewModel
                                 .fetch(_searchBadTextEditingController.text);
                           });
                         },
@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
               ),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
               StreamBuilder(
-                  stream: photoProvider.photoStream,
+                  stream: viewModel.photoStream,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const CircularProgressIndicator();
