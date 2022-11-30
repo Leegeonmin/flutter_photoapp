@@ -1,6 +1,6 @@
 import 'package:flutter_photoapp/data/photo_api_repository.dart';
 import 'package:flutter_photoapp/data/pixabay_api.dart';
-import 'package:flutter_photoapp/ui/main/main_view_model.dart';
+import 'package:flutter_photoapp/ui/screen/main/main_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_photoapp/model/photo.dart';
 

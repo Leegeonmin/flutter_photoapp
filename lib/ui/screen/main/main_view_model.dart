@@ -1,4 +1,3 @@
-import 'package:flutter_photoapp/data/pixabay_api.dart';
 import 'package:flutter_photoapp/data/photo_api_repository.dart';
 import 'package:flutter_photoapp/model/photo.dart';
 import 'dart:async';
