@@ -55,3 +55,21 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
 
   photoApiRepository는 일반화를 위한 추상 클래스
   pixabay_api는 photoApiRepository를 상속받음
+
+## 12-1
+
+- test
+
+  - data
+    - pixabay_api_test
+    - pixabay_api_test.mocks
+  - ui
+    - main_view_model_test
+
+  mokito를 사용해서 api 연결과 무관하게 test 수행(독립적)
+  @GenerateMocks([type])을 적어준뒤
+  flutter pub run build_runner build를 터미널에 입력하면
+  .mocks 파일 생성
+
+  사용할 메서드에는 반드시 client를 인자로 받아야함
+  Verify 메서드는 a method on a mock object was called with the given arguments.

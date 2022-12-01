@@ -1,4 +1,5 @@
 import 'package:flutter_photoapp/data/pixabay_api.dart';
+import 'package:flutter_photoapp/model/photo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ void main() {
 
     final result = await api.fetch('iphone', client: client);
     expect(result.first.id, 2681039);
+    expect(result, isA<List<Photo>>());
 
     verify(client.get(Uri.parse(
         '${PixabayApi.baseUrl}?key=${PixabayApi.apiKey}&q=iphone&image_type=photo')));
