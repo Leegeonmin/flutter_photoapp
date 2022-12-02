@@ -72,4 +72,5 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
   .mocks 파일 생성
 
   사용할 메서드에는 반드시 client를 인자로 받아야함
+  When 메서드 means if we add the code above in a test block, everytime arguments in When, it will always return thenAnswer()
   Verify 메서드는 a method on a mock object was called with the given arguments.
