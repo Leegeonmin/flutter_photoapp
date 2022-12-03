@@ -42,3 +42,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# package side file
+*.g.dart
+*.freezed.dart
+*.mocks
