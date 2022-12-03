@@ -74,3 +74,18 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
   사용할 메서드에는 반드시 client를 인자로 받아야함
   When 메서드 means if we add the code above in a test block, everytime arguments in When, it will always return thenAnswer()
   Verify 메서드는 a method on a mock object was called with the given arguments.
+
+## 12-3
+
+-photo 모델 재정의
+
+### @JsonSerializable()
+
+    - json으로 받아온 데이터 build_runner를 통해 자동으로 serialization
+    - 변수의 이름을 변경하고 싶으면 @JsonKey(name: {바꾸고싶은 변수명})
+    - 내가 할 일, 받아올 변수 만들기, factory fromJson, toJson
+
+### extends Equtable
+
+    - 서로 다른 인스턴스에 대해 판단을 쉽게 해줄 수 있는 플러그인
+    - equtable을 상속받고 get props를 override해주면 끝
