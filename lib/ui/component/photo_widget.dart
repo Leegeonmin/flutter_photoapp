@@ -11,6 +11,6 @@ class PhotoWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(20)),
             image: DecorationImage(
-                fit: BoxFit.cover, image: NetworkImage(photo.previewUrl))));
+                fit: BoxFit.cover, image: NetworkImage(photo.previewURL))));
   }
 }

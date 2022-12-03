@@ -85,7 +85,17 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
     - 변수의 이름을 변경하고 싶으면 @JsonKey(name: {바꾸고싶은 변수명})
     - 내가 할 일, 받아올 변수 만들기, factory fromJson, toJson
 
-### extends Equtable
+### Equtable
 
     - 서로 다른 인스턴스에 대해 판단을 쉽게 해줄 수 있는 플러그인
     - equtable을 상속받고 get props를 override해주면 끝
+
+## 12-4
+
+-photo 모델 재정의
+
+### @freezed
+
+- jsonSerilizable과 Equtable의 기능을 모두 합친 패키지
+- 다만 Equtable은 인스턴스 비교와 hashCode를 가능하게하는 mixin이지만 freezed는 immutable class를 만드는 build system이라는 점
+- json_serializable, copy, toString override, assert 등 편의성 기능 제공, fromJson만 작성해도 toJson기능 제공
