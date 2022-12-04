@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_photoapp/data/photo_provider.dart';
 import 'package:flutter_photoapp/ui/component/photo_widget.dart';
 import 'package:flutter_photoapp/model/photo.dart';
+import 'package:flutter_photoapp/ui/screen/main/main_view_model.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -21,7 +22,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = PhotoProvider.of(context).viewModel;
+    final viewModel = context.watch<MainViewModel>();
 
     return Scaffold(
         appBar: AppBar(
