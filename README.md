@@ -109,3 +109,21 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
   context.watch<viewModel>(); 같은 방식
   context.read<viewModel>();은 뷰모델을 가져오지만 listening은 하지않음,
 - Consumer<viewModel>을 이용해 rebuild가 필요한 위젯만 rebuild하게 효율적으로도 가능
+
+-clean architecture 형태로 프로젝트 구조 변경
+
+- data, domain, presentation
+
+  - presentation
+    - view, viewModel을 포함하는 layer
+  - domain
+    - usecase, repository(interface), entity(model class)를 포함하는 layer
+  - data layer
+
+    - data source, repository(implements)를 포함하는 layer
+
+  - data_source에서 api 통신을 통해 가져온 response를 jsonDecode,
+  - repo_impl에서 decoding한 데이터를 도메인 모델로 변환해서 return
+  - viewModel은 전달받은 도메인 모델 가공
+
+  - main에서 MainViewModel(repository:PhotoApiRepositoryImpl(PixabayApi(client: http.Client()))) 이러한 의존성 주입은 테스트 코드를 작성하기 용이하게한다.
