@@ -1,9 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_photoapp/data/photo_api_repository.dart';
-import 'package:flutter_photoapp/model/photo.dart';
+import 'package:flutter_photoapp/domain/repository/photo_api_repository.dart';
 import 'dart:async';
+import 'package:flutter_photoapp/domain/model/photo.dart';
 
 class MainViewModel with ChangeNotifier {
   final PhotoApiRepository repository;
@@ -18,5 +18,5 @@ class MainViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  MainViewModel(this.repository);
+  MainViewModel({required this.repository});
 }

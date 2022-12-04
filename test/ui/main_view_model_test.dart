@@ -1,13 +1,12 @@
-import 'package:flutter_photoapp/data/photo_api_repository.dart';
-import 'package:flutter_photoapp/data/pixabay_api.dart';
-import 'package:flutter_photoapp/ui/screen/main/main_view_model.dart';
+import 'package:flutter_photoapp/domain/repository/photo_api_repository.dart';
+import 'package:flutter_photoapp/domain/model/photo.dart';
+import 'package:flutter_photoapp/presentation/main/main_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_photoapp/model/photo.dart';
 
 void main() {
   test('Stream이 잘 동작해야한다', () async {
     // !! PixabayApi에 의존되고 있음
-    final viewModel = MainViewModel(FakePhotoApiRepository());
+    final viewModel = MainViewModel(repository: FakePhotoApiRepository());
     await viewModel.fetch('apple');
     final List<Photo> result = fakeJson.map((e) => Photo.fromJson(e)).toList();
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_photoapp/data/pixabay_api.dart';
-import 'package:flutter_photoapp/ui/screen/main/main_view.dart';
-import 'package:flutter_photoapp/ui/screen/main/main_view_model.dart';
+import 'package:flutter_photoapp/data/data_source/pixabay_api.dart';
+import 'package:flutter_photoapp/data/repository/photo_api_repository_impl.dart';
+import 'package:flutter_photoapp/presentation/main/main_view.dart';
+import 'package:flutter_photoapp/presentation/main/main_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       home: ChangeNotifierProvider(
-          create: (_) => MainViewModel(PixabayApi()), child: const MainPage()),
+          create: (_) => MainViewModel(
+              repository:
+                  PhotoApiRepositoryImpl(PixabayApi(client: http.Client()))),
+          child: const MainPage()),
     );
   }
 }

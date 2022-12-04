@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_photoapp/ui/component/photo_widget.dart';
-import 'package:flutter_photoapp/model/photo.dart';
-import 'package:flutter_photoapp/ui/screen/main/main_view_model.dart';
+import 'package:flutter_photoapp/presentation/main/component/photo_widget.dart';
+import 'package:flutter_photoapp/presentation/main/main_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -46,34 +45,29 @@ class _MainPageState extends State<MainPage> {
                     suffixIcon: IconButton(
                         onPressed: () async {
                           setState(() {
-                            context
-                                .read<MainViewModel>()
+                            viewModel
                                 .fetch(_searchBadTextEditingController.text);
                           });
                         },
                         icon: const Icon(Icons.search))),
               ),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
-              Consumer<MainViewModel>(
-                builder: (_, viewModel, child) {
-                  return Expanded(
-                    child: viewModel.photoList.isEmpty
-                        ? Center(child: Text("검색어를 입력해보세요."))
-                        : GridView.builder(
-                            itemCount: photos.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 16,
-                                    mainAxisSpacing: 16),
-                            itemBuilder: (context, index) {
-                              return PhotoWidget(
-                                photo: photos[index],
-                              );
-                            },
-                          ),
-                  );
-                },
+              Expanded(
+                child: viewModel.photoList.isEmpty
+                    ? Center(child: Text("검색어를 입력해보세요."))
+                    : GridView.builder(
+                        itemCount: photos.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16),
+                        itemBuilder: (context, index) {
+                          return PhotoWidget(
+                            photo: photos[index],
+                          );
+                        },
+                      ),
               )
             ],
           ),
