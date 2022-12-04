@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
-
+    final photos = viewModel.photoList;
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -46,36 +46,35 @@ class _MainPageState extends State<MainPage> {
                     suffixIcon: IconButton(
                         onPressed: () async {
                           setState(() {
-                            viewModel
+                            context
+                                .read<MainViewModel>()
                                 .fetch(_searchBadTextEditingController.text);
                           });
                         },
                         icon: const Icon(Icons.search))),
               ),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
-              StreamBuilder(
-                  stream: viewModel.photoStream,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const CircularProgressIndicator();
-                    }
-                    final photos = snapshot.data!;
-                    return Expanded(
-                      child: GridView.builder(
-                        itemCount: photos.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16),
-                        itemBuilder: (context, index) {
-                          return PhotoWidget(
-                            photo: photos[index],
-                          );
-                        },
-                      ),
-                    );
-                  })
+              Consumer<MainViewModel>(
+                builder: (_, viewModel, child) {
+                  return Expanded(
+                    child: viewModel.photoList.isEmpty
+                        ? Center(child: Text("검색어를 입력해보세요."))
+                        : GridView.builder(
+                            itemCount: photos.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16),
+                            itemBuilder: (context, index) {
+                              return PhotoWidget(
+                                photo: photos[index],
+                              );
+                            },
+                          ),
+                  );
+                },
+              )
             ],
           ),
         ));
