@@ -99,3 +99,13 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
 - jsonSerilizable과 Equtable의 기능을 모두 합친 패키지
 - 다만 Equtable은 인스턴스 비교와 hashCode를 가능하게하는 mixin이지만 freezed는 immutable class를 만드는 build system이라는 점
 - json_serializable, copy, toString override, assert 등 편의성 기능 제공, fromJson만 작성해도 toJson기능 제공
+
+## 12-5
+
+-photoprovider -> Provider 라이브러리로 대체
+
+- stream 필요 없이 notifyListeners()를 이용해 view에 전달가능
+  Provider.of<viweModel>();
+  context.watch<viewModel>(); 같은 방식
+  context.read<viewModel>();은 뷰모델을 가져오지만 listening은 하지않음,
+- Consumer<viewModel>을 이용해 rebuild가 필요한 위젯만 rebuild하게 효율적으로도 가능
