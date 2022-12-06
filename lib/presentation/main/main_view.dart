@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_photoapp/presentation/main/component/photo_widget.dart';
 import 'package:flutter_photoapp/presentation/main/main_view_model.dart';
@@ -12,9 +14,25 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final _searchBadTextEditingController = TextEditingController();
+  StreamSubscription? _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final viewModel = context.read<MainViewModel>();
+      _subscription = viewModel.eventStream.listen((event) {
+        event.when(showSnackBar: (message) {
+          final snackBar = SnackBar(content: Text(message));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        });
+      });
+    });
+  }
 
   @override
   void dispose() {
+    _subscription?.cancel();
     _searchBadTextEditingController.dispose();
     super.dispose();
   }
