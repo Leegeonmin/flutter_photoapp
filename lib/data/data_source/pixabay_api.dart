@@ -17,7 +17,7 @@ class PixabayApi {
       Iterable items = decodeJson['hits'];
       return Result.success(items);
     } catch (e) {
-      return Result.error('네트워크 에러');
+      return const Result.error('네트워크 에러');
     }
   }
 }

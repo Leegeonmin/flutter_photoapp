@@ -14,14 +14,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final _searchBadTextEditingController = TextEditingController();
-  StreamSubscription? _subscription;
 
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       final viewModel = context.read<MainViewModel>();
-      _subscription = viewModel.eventStream.listen((event) {
+      viewModel.eventStream.listen((event) {
         event.when(showSnackBar: (message) {
           final snackBar = SnackBar(content: Text(message));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -32,7 +31,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
-    _subscription?.cancel();
     _searchBadTextEditingController.dispose();
     super.dispose();
   }

@@ -127,3 +127,18 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
   - viewModel은 전달받은 도메인 모델 가공
 
   - main에서 MainViewModel(repository:PhotoApiRepositoryImpl(PixabayApi(client: http.Client()))) 이러한 의존성 주입은 테스트 코드를 작성하기 용이하게한다.
+
+## 12-6
+
+- 에러처리
+  - Result 추상 클래스 생성
+    - factory keyword를 이용해 success, error 타입 생성
+    - 새로운 인스턴스를 생성하지 않는 생성자를 구현할 때 factory 키워드를 사용하라고 한다. => 싱글톤
+    - fetch를 통해 받아온 데이터는 try catch문을 통해 Result.success or Result.error로 리턴됨.
+    - freezed를 통해 class를 빌드하면 when 메서드를 사용할 수 있음
+      이를 통해 response를 성공, 실패했을 때 리턴 타입을 분기가능
+    - viewModel에 Result.error가 넘어오면
+      streamController를 통해 이벤트를 발생시킴
+    - view에서는 initState단계에서 read(watch는 불가능)를 통해
+      eventStream에서 event 포착 후 action
+    - ? 굳이 스트림 컨트롤러 달지말고
