@@ -11,7 +11,7 @@ void main() {
     await viewModel.fetch('apple');
     final List<Photo> result = fakeJson.map((e) => Photo.fromJson(e)).toList();
 
-    expect(viewModel.photoList, result);
+    expect(viewModel.state.photos, result);
   });
 }
 

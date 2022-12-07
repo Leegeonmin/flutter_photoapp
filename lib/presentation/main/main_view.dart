@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
-    final photos = viewModel.photoList;
+    final photos = viewModel.state.photos;
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -69,8 +69,8 @@ class _MainPageState extends State<MainPage> {
               ),
               const Padding(padding: EdgeInsets.only(bottom: 20)),
               Expanded(
-                child: viewModel.photoList.isEmpty
-                    ? Center(child: Text("검색어를 입력해보세요."))
+                child: viewModel.state.isLoading
+                    ? Center(child: Text("검색 중..."))
                     : GridView.builder(
                         itemCount: photos.length,
                         gridDelegate:
