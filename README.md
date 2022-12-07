@@ -142,3 +142,11 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
     - view에서는 initState단계에서 read(watch는 불가능)를 통해
       eventStream에서 event 포착 후 action
     - ? 굳이 스트림 컨트롤러 달지말고
+
+## 12-7
+
+- 상태관리
+  - viewModel에 photo list인 photos와 fetch 중 로딩을 체크하는 isLoading 두가지 상태가 존재 -> viewModel이 복잡해짐
+  - 상태를 따로 관리하는 Home_State 객체를 생성
+  - viewModel은 Home_State 객체를 가지고 있고 getter를 통해 사용
+  - Home_State를 freezed를 사용해 불변객체로 만듦(copyWith으로 값 복사)
