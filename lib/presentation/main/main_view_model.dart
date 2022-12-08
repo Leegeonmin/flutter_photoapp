@@ -1,14 +1,14 @@
-import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_photoapp/data/data_source/result.dart';
-import 'package:flutter_photoapp/domain/repository/photo_api_repository.dart';
 import 'dart:async';
 import 'package:flutter_photoapp/domain/model/photo.dart';
+import 'package:flutter_photoapp/domain/use_case/get_photos_use_case.dart';
 import 'package:flutter_photoapp/presentation/main/home_state.dart';
 import 'package:flutter_photoapp/presentation/main/home_ui_event.dart';
 
 class MainViewModel with ChangeNotifier {
-  final PhotoApiRepository repository;
+  final GetPhotosUseCase getPhotosUseCase;
+
   HomeState _state = HomeState([], false);
   HomeState get state => _state;
 
@@ -19,7 +19,8 @@ class MainViewModel with ChangeNotifier {
     _state = state.copyWith(isLoading: true);
 
     notifyListeners();
-    final Result<List<Photo>> result = await repository.fetch(query);
+    final Result<List<Photo>> result = await getPhotosUseCase.execute(query);
+
     result.when(success: (photos) {
       _state = state.copyWith(photos: photos);
       notifyListeners();
@@ -32,5 +33,5 @@ class MainViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  MainViewModel({required this.repository});
+  MainViewModel({required this.getPhotosUseCase});
 }
