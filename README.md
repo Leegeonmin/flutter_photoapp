@@ -150,3 +150,11 @@ view에서 data class를 의존하여 view에 필요한 데이터가 늘어날 �
   - 상태를 따로 관리하는 Home_State 객체를 생성
   - viewModel은 Home_State 객체를 가지고 있고 getter를 통해 사용
   - Home_State를 freezed를 사용해 불변객체로 만듦(copyWith으로 값 복사)
+
+## 12-8
+
+- use_case 생성
+  - 기존 viewModel에서 직접 repository객체를 가지고 data를 가져오던 로직을 분리하기 위해 생성
+  - viewModel - usecase - repository
+  - viewModel은 오로지 view와 관련된 로직이 포함되어야함
+  - usecase는 business logic을 포함하며, 기능별로 하나의 클래스로만 작성해 재사용성을 높이는 게 좋음

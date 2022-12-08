@@ -25,7 +25,6 @@ class MainViewModel with ChangeNotifier {
       _state = state.copyWith(photos: photos);
       notifyListeners();
     }, error: (message) {
-      print(message);
       _eventController.add(HomeUiEvent.showSnackBar(message));
     });
     _state = state.copyWith(isLoading: false);
